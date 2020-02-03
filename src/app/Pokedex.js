@@ -8,7 +8,8 @@ class Pokedex extends Component{
 			pokeId: 1,
 			pokedata: [],
 			pokeGeneralInfo: [],
-			language: 'en'
+			language: 'en',
+			render: '',
 		}
 	}
 
@@ -72,7 +73,7 @@ class Pokedex extends Component{
 		var s = String(id);
 		while (s.length < (3 || 2)) {s = "0" + s;}
 		return s;
-	  }
+	}
 	  
 	render(){
 		if (!this.state.pokeGeneralInfo.flavor_text_entries) {
@@ -80,12 +81,6 @@ class Pokedex extends Component{
 		}
 		return (
 			<div>
-				<nav className="light-blue darken-4">
-					<div className="container">
-						<a className="brand-logo" href="/">POKEDEX</a>
-					</div>
-				</nav>
-
 					<div className="row">
 						<div className="col m12">
 							<div className="card">
