@@ -5,6 +5,10 @@
 .image-100-responsive{width:100%;}
 .attribute-data{border-radius:12px; padding:20px !important;}
 .attribute-value{font-size:18px; margin-top: 6px; margin-bottom: 6px;}
+
+/* POKEDEX */
+.custom-card{    background: #ececec; padding: 10px; margin: 10px;}
+
 /* BAR */
 .bar-graph{display: flex; align-items: flex-end; height: 100px;}
 .bar{margin:1px;}

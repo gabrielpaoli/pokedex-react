@@ -7,7 +7,6 @@ import {
     Switch,
     Route,
     Link,
-    useParams
   } from "react-router-dom";
 
 class App extends Component{
@@ -15,35 +14,24 @@ class App extends Component{
 	constructor() {
 		super();
 	}
-
 	  
 	render(){
 		return (
             <Router>
                 <nav className="light-blue darken-4">
                     <ul>
-                        <li>
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/pokedex">Pokedex</Link>
-                        </li>
-                        <li>
-                            <Link to="/pokemon">Pokemon</Link>
-                        </li>
+                        <li><Link to="/">Home</Link></li>
+                        <li><Link to="/pokedex">Pokedex</Link></li>
                     </ul>
                 </nav>
 
-
                 <Switch>
-                    <Route path="/pokemon/:id">
-                        <Pokemon/>
-                    </Route>
+                    <Route path="/pokemon/:id" component={ Pokemon }></Route>
                     <Route path="/pokedex">
                         <Pokedex/>
                     </Route>
                     <Route path="/">
-                    <Home />
+                        <Home />
                     </Route>
                 </Switch>
             </Router>

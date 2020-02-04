@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from "react-router-dom";
 
 class Pokemon extends Component{
 
@@ -8,8 +9,7 @@ class Pokemon extends Component{
 			pokeId: 1,
 			pokedata: [],
 			pokeGeneralInfo: [],
-			language: 'en',
-			render: '',
+			language: 'en'
 		}
 	}
 
@@ -30,7 +30,14 @@ class Pokemon extends Component{
 	}
 
 	componentDidMount() {
-		this.getAllPokemonInfo(1);
+		let pokemonId = 1;
+		if(this.props.match.params.id){
+			pokemonId = parseInt(this.props.match.params.id);
+			this.setState({pokeId: pokemonId});
+		}
+
+		this.getAllPokemonInfo(pokemonId);
+
 	}
 
 	getAllPokemonInfo(id){
@@ -48,7 +55,7 @@ class Pokemon extends Component{
 	}
 
 	nextPokemon(id){
-		if(id < 721){
+		if(id <= 964){
 			var id = id + 1;
 			this.setState({pokeId: id});
 			this.getAllPokemonInfo(id);
@@ -63,6 +70,20 @@ class Pokemon extends Component{
 			}
 		});
 		return text;
+	}
+
+	next(id){
+		if(id < 964){
+			return id + 1;
+		}
+		return 964;
+	}
+
+	prev(id){
+		if(id > 1){
+			return id - 1;
+		}
+		return 1;
 	}
 
 	removePokemonWord(text){
@@ -169,12 +190,17 @@ class Pokemon extends Component{
 							</div>
 
 							<div>
-								<button className="btn light-blue darken-4 left" onClick={() => this.prevPokemon(this.state.pokeId)}> 
-									<i className="material-icons">arrow_back</i>
-								</button>
-								<button className="btn light-blue darken-4 right" onClick={() => this.nextPokemon(this.state.pokeId)}> 
-									<i className="material-icons">arrow_forward</i>
-								</button>
+								<Link to={`/pokemon/${this.prev(this.state.pokeId)}`} onClick={() => this.prevPokemon(this.state.pokeId)}>
+									<button className="btn light-blue darken-4 left"> 
+										<i className="material-icons">arrow_back</i>
+									</button>
+								</Link>
+					
+								<Link to={`/pokemon/${this.next(this.state.pokeId)}`} onClick={() => this.nextPokemon(this.state.pokeId)}>
+									<button className="btn light-blue darken-4 right"> 
+										<i className="material-icons">arrow_forward</i>
+									</button>
+								</Link>
 							</div>
 						</div>
 				</div>
