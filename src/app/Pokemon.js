@@ -190,13 +190,13 @@ class Pokemon extends Component{
 							</div>
 
 							<div>
-								<Link to={`/pokemon/${this.prev(this.state.pokeId)}`} onClick={() => this.prevPokemon(this.state.pokeId)}>
+								<Link to={`/pokedex/${this.prev(this.state.pokeId)}`} onClick={() => this.prevPokemon(this.state.pokeId)}>
 									<button className="btn light-blue darken-4 left"> 
 										<i className="material-icons">arrow_back</i>
 									</button>
 								</Link>
 					
-								<Link to={`/pokemon/${this.next(this.state.pokeId)}`} onClick={() => this.nextPokemon(this.state.pokeId)}>
+								<Link to={`/pokedex/${this.next(this.state.pokeId)}`} onClick={() => this.nextPokemon(this.state.pokeId)}>
 									<button className="btn light-blue darken-4 right"> 
 										<i className="material-icons">arrow_forward</i>
 									</button>
