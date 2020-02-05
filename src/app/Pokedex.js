@@ -8,7 +8,8 @@ class Pokedex extends Component{
 		this.state = {
 			pokedexdata: [],
 			offset: 0,
-			limit: 20
+			limit: 20,
+			spinner: true,
 		}
 	}
 
@@ -16,12 +17,16 @@ class Pokedex extends Component{
 		this.getPokemons(this.state.offset, this.state.limit);
 	}
 
+	//TODO: agarrar el total de items y pasarselo al show more
+
 	getPokemons(offset, limit){
+		this.setState({spinner: true});
+
 		fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`)
 		.then(res =>res.json())
 		.then(data => {
 			this.setState({pokedexdata: this.state.pokedexdata.concat(data)});
-			console.log(this.state.pokedexdata);
+			this.setState({spinner: false});
 		});
 	}
 
@@ -49,36 +54,40 @@ class Pokedex extends Component{
 		}
 
 		return (
-		<div>
-			<div className="container">
-				<div className="row">
-					{
-						this.state.pokedexdata.map(pokemon => {
-							return (
-								pokemon.results.map(pokemonInn => {
-									return (
-										<div key={pokemonInn.name} className="col s3">
-											<Link to={`/pokemon/${this.parseId(pokemonInn.url)}`}>
-												<div className="custom-card">
-													<img className="image-100-responsive" src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${this.pad(this.parseId(pokemonInn.url))}.png`} />
-													<p className="center-align">{pokemonInn.name}</p>
-												</div>
-											</Link>
-										</div>
-									);
-								})
-							);
-						})
-					}
+			<div>
+				<div className="container">
+					<div className="row">
+						{
+							this.state.pokedexdata.map(pokemon => {
+								return (
+									pokemon.results.map(pokemonInn => {
+										return (
+											<div key={pokemonInn.name} className="col m3">
+												<Link to={`/pokemon/${this.parseId(pokemonInn.url)}`}>
+													<div className="custom-card">
+														<img className="image-100-responsive" src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${this.pad(this.parseId(pokemonInn.url))}.png`} />
+														<p className="center-align">{pokemonInn.name}</p>
+													</div>
+												</Link>
+											</div>
+										);
+									})
+								);
+							})
+						}
 
-					<div className="center-align">
-						<button className="btn light-blue darken-4 center-align" onClick={() => this.showMore()}> 
-							Show more
-						</button>
-					</div>
+						<div className="center-align">
+							<button className="btn light-blue darken-4 center-align" onClick={() => this.showMore()}> 
+								{this.state.spinner ? (
+									<i className="material-icons">sync</i>
+								) : (
+									'Show more'
+								)}	
+							</button>
+						</div>
+					</div>	
 				</div>	
-			</div>	
-		</div>
+			</div>
 		)
 	}
 }

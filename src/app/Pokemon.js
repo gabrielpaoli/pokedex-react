@@ -146,11 +146,11 @@ class Pokemon extends Component{
 
 										</div>
 										<div className="col m7">
-											<div className="col m12">
+											<div className="col s12">
 												<h5 className="subtitle">Description</h5>
 												{this.getDescriptionPerLanguage(this.state.pokeGeneralInfo.flavor_text_entries)}
 											</div>
-											<div className="col m12">
+											<div className="col s12">
 												<h5 className="subtitle">Attributes</h5>
 												<div className="attribute-data light-blue darken-1 col s12">
 														<div className="col m6">
@@ -174,7 +174,7 @@ class Pokemon extends Component{
 												{
 													this.state.pokedata.types.map(typeGeneral => {
 														return (
-																<div key={typeGeneral.type.name} className="col s3">
+																<div key={typeGeneral.type.name} className="col m3">
 																	<div className={`background-color-${typeGeneral.type.name} container-type`}>{typeGeneral.type.name}</div>
 																</div>
 														);
