@@ -8,12 +8,12 @@
 
 /* POKEDEX */
 .custom-card{background: #ececec; padding: 10px; margin: 10px;}
-.custom-card:hover{background: #cccccc;}
-
+.custom-card:hover{background: #cccccc;} 
+ 
 /* BAR */
 .bar-graph{display: flex; align-items: flex-end; height: 100px;}
 .bar{margin:1px;}
-.bar-graph .col:nth-child(1n) .bar {background-color: #01579b;}
+.bar-graph .col:nth-child(1n) .bar {background-color: #01579b;} 
 .bar-graph .col:nth-child(2n) .bar {background-color: #bcaaa4;}
 .bar-graph .col:nth-child(3n) .bar {background-color: #ffd600;}
 .bar-graph .col:nth-child(4n) .bar {background-color: #f57f17;}

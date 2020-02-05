@@ -20,7 +20,7 @@ class Pokemon extends Component{
 			this.setState({pokedata: data});
 		});
 	}
-
+ 
 	getPokemonGeneralInfo(id){
 		fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
 		.then(res =>res.json())
@@ -30,7 +30,7 @@ class Pokemon extends Component{
 	}
 
 	componentDidMount() {
-		let pokemonId = 1;
+		let pokemonId = 1; 
 		if(this.props.match.params.id){
 			pokemonId = parseInt(this.props.match.params.id);
 			this.setState({pokeId: pokemonId});
@@ -99,9 +99,9 @@ class Pokemon extends Component{
 	render(){
 		if (!this.state.pokeGeneralInfo.flavor_text_entries || !this.state.pokedata.stats) {
 				return <span>Loading...</span>;
-		}
+		} 
 		return (
-			<div>
+			<div> 
 					<div className="row">
 						<div className="col m12">
 							<div className="card">

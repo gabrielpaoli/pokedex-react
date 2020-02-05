@@ -75,7 +75,7 @@ class Pokedex extends Component{
 								);
 							})
 						}
-
+ 
 						<div className="center-align">
 							<button className="btn light-blue darken-4 center-align" onClick={() => this.showMore()}> 
 								{this.state.spinner ? (

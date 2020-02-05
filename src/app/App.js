@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import Pokemon from './Pokemon';
 import Pokedex from './Pokedex';
 
-import {
+import { 
     BrowserRouter as Router,
     Switch,
     Route,
     Link,
-  } from "react-router-dom";
+  } from "react-router-dom"; 
 
 class App extends Component{
 
@@ -15,7 +15,7 @@ class App extends Component{
 		super();
 	}
 	  
-	render(){
+	render(){ 
 		return (
             <Router>
                 <nav className="light-blue darken-4">
@@ -27,12 +27,8 @@ class App extends Component{
 
                 <Switch>
                     <Route path="/pokemon/:id" component={ Pokemon }></Route>
-                    <Route path="/pokedex">
-                        <Pokedex/>
-                    </Route>
-                    <Route path="/">
-                        <Home />
-                    </Route>
+                    <Route path="/pokedex" component={ Pokedex }></Route>
+                    <Route path="/" component={ Home }></Route>
                 </Switch>
             </Router>
 		)
