@@ -31,8 +31,8 @@ class Pokedex extends Component{
 	}
 
 	parseId(url){
-		let id = url.replace("https://pokeapi.co/api/v2/pokemon/", "");
-		id = id.replace("/", "");
+		let id = url.split("/");
+		id = id.slice(-2, -1);
 		return id;
 	}
 

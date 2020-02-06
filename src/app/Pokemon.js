@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import PokemonGraph from './pokemon/PokemonGraph';
 import PokemonAttributes from './pokemon/PokemonAttributes';
 import PokemonType from './pokemon/PokemonType';
+import EvolveChain from './pokemon/EvolveChain';
 
 class Pokemon extends Component{
 
@@ -12,7 +13,8 @@ class Pokemon extends Component{
 			pokeId: 1,
 			pokedata: [],
 			pokeGeneralInfo: [],
-			language: 'en'
+			language: 'en',
+			evolutionChain: []
 		}
 	}
 
@@ -29,6 +31,17 @@ class Pokemon extends Component{
 		.then(res =>res.json())
 		.then(data => {
 			this.setState({pokeGeneralInfo: data});
+			this.getEvolutionChain(this.state.pokeGeneralInfo.evolution_chain.url);
+		});
+	}
+
+	getEvolutionChain(chain){
+		fetch(chain)
+		.then(res =>res.json())
+		.then(data => {
+			if(data.chain){
+				this.setState({evolutionChain: data.chain});
+			}
 		});
 	}
 
@@ -39,6 +52,7 @@ class Pokemon extends Component{
 			this.setState({pokeId: pokemonId});
 		}
 		this.getAllPokemonInfo(pokemonId);
+
 	}
 
 	getAllPokemonInfo(id){
@@ -90,15 +104,20 @@ class Pokemon extends Component{
 		return text.replace(" Pokémon", "");
 	}
 
-	pad(id) {
-		//TODO: This smells to refactor
+	parseId(url){
+		let id = url.split("/");
+		id = id.slice(-2, -1);
+		return id;
+	}
+
+	pad(id){
 		var s = String(id);
 		while (s.length < (3 || 2)) {s = "0" + s;}
 		return s;
 	}
 	  
 	render(){
-		if (!this.state.pokeGeneralInfo.flavor_text_entries || !this.state.pokedata.stats) {
+		if (!this.state.pokeGeneralInfo.flavor_text_entries || !this.state.pokedata.stats || !this.state.evolutionChain) {
 				return <span>Loading...</span>;
 		} 
 		return (
@@ -110,7 +129,7 @@ class Pokemon extends Component{
 								<h3 className="center title">
 									{this.state.pokedata.name}  <span className="grey-text text-darken-1">N.°{this.pad(this.state.pokedata.id)}</span>
 								</h3>
-
+								<EvolveChain chain = {this.state.evolutionChain} />
 									<div className="row">
 										<div className="col m5">
 											<img className="image-100-responsive" src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${this.pad(this.state.pokedata.id)}.png`} />

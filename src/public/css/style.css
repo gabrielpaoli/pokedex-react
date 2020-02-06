@@ -8,7 +8,7 @@
 
 /* POKEDEX */
 .custom-card{background: #ececec; padding: 10px; margin: 10px;}
-.custom-card:hover{background: #cccccc;} 
+.custom-card:hover{background: #cccccc;}  
  
 /* BAR */
 .bar-graph{display: flex; align-items: flex-end; height: 100px;}
