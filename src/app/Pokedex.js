@@ -66,7 +66,7 @@ class Pokedex extends Component{
 												<Link to={`/pokedex/${this.parseId(pokemonInn.url)}`}>
 													<div className="custom-card">
 														<img className="image-100-responsive" src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${this.pad(this.parseId(pokemonInn.url))}.png`} />
-														<p className="center-align">{pokemonInn.name}</p>
+ 														<p className="center-align">{pokemonInn.name}</p>
 													</div>
 												</Link>
 											</div>

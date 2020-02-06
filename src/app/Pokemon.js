@@ -103,7 +103,7 @@ class Pokemon extends Component{
 		} 
 		return (
 			<div> 
-								<div className="container general-container-pokedex">
+				<div className="container general-container-pokedex">
 					<div className="row">
 						<div className="col m12">
 							<div className="card">

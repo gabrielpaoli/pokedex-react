@@ -5,7 +5,7 @@ const app = express();
 const path = require('path');
 
 //Settings
-app.set('port', process.env.PORT || 8080) 
+app.set('port', process.env.PORT || 2424) 
 
 //Middlewares
 app.use(morgan('dev'));
