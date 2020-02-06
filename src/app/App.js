@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
+
+import Header from './general/Header';
 import Pokemon from './Pokemon';
 import Pokedex from './Pokedex';
+import Footer from './general/Footer';
 
 import { 
     BrowserRouter as Router,
     Switch,
     Route,
-    Link,
   } from "react-router-dom"; 
 
 class App extends Component{
@@ -18,18 +20,15 @@ class App extends Component{
 	render(){ 
 		return (
             <Router>
-                <nav className="light-blue darken-4">
-                    <ul>
-                        <li><Link to="/">Home</Link></li>
-                        <li><Link to="/pokedex">Pokedex</Link></li>
-                    </ul>
-                </nav>
+                <Header/>
 
                 <Switch>
                     <Route path="/pokedex/:id" component={ Pokemon }></Route>
                     <Route path="/pokedex" component={ Pokedex }></Route>
                     <Route path="/" component={ Home }></Route>
                 </Switch>
+
+                <Footer/>
             </Router>
 		)
 	}
