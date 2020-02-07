@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Header from './general/Header';
-import Pokemon from './Pokemon';
+import PokemonLayout from './PokemonLayout';
 import Pokedex from './Pokedex';
 import Footer from './general/Footer';
 
@@ -23,7 +23,7 @@ class App extends Component{
                 <Header/>
 
                 <Switch>
-                    <Route path="/pokedex/:id" component={ Pokemon }></Route>
+                    <Route path="/pokedex/:id" component={ PokemonLayout }></Route>
                     <Route path="/pokedex" component={ Pokedex }></Route>
                     <Route path="/" component={ Home }></Route>
                 </Switch>
