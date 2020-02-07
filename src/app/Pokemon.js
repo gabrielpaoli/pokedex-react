@@ -16,8 +16,11 @@ class Pokemon extends Component{
 			language: 'en',
 			evolutionChain: []
 		}
-	}
+    this.parseId= this.parseId.bind(this);
+    this.pad= this.pad.bind(this);
 
+	}
+	
 	getPokemon(id){
 		fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
 		.then(res =>res.json())
@@ -129,7 +132,6 @@ class Pokemon extends Component{
 								<h3 className="center title">
 									{this.state.pokedata.name}  <span className="grey-text text-darken-1">N.°{this.pad(this.state.pokedata.id)}</span>
 								</h3>
-								<EvolveChain chain = {this.state.evolutionChain} />
 									<div className="row">
 										<div className="col m5">
 											<img className="image-100-responsive" src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${this.pad(this.state.pokedata.id)}.png`} />
@@ -156,6 +158,15 @@ class Pokemon extends Component{
 											</div>
 
 										</div>	
+										
+										<div className="col m12">
+												<EvolveChain 
+													chain = {this.state.evolutionChain} 
+													parseChain = {this.parseId.bind(this)} 
+													pad = {this.pad.bind(this)} 
+												/>
+											</div>
+
 									</div>
 
 								</div>

@@ -202,3 +202,37 @@
     color: #fff;
     padding-bottom: 2px;
 }
+
+/* EVOLVE */
+.evolve-chain{display: flex; flex-direction: row; align-items: center; text-align: center;}
+
+.evolve-container-inn{
+    display: flex;
+    align-items: center;
+}
+
+.evolve-arrow{
+    font-size: 2em;
+}
+
+.evolve-container-inn-0{
+    flex: 1;
+}
+.evolve-container-inn-1,
+.evolve-container-inn-2,
+.evolve-container-inn-3{
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1;
+}
+
+.evolve-pokemon{
+    width: 100%;
+    flex: 1 25%;
+}
+
+.evolve-pokemon img{
+    max-width: 100px;
+    border: 1px solid;
+    border-radius: 20px;
+}
