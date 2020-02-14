@@ -59,7 +59,7 @@ class EvolveChain extends Component{
 											<div key={key1} className="evolve-pokemon">
 
 
-											<Link to={`/pokedex/${pokeGeneralInn.id}`} onClick={() => this.props.getAllPokemonInfo(pokeGeneralInn.id)}>
+											<Link to={`/pokedex/${pokeGeneralInn.id}`} onClick={() => this.props.getAllPokemonInfo(parseInt(pokeGeneralInn.id))}>
 												<Img 
 													className={`image-100-responsive evolve-image-${key0}`}
 													src={pokeGeneralInn.url} 

@@ -63,6 +63,7 @@ class Pokemon extends Component{
 	}
 
 	getAllPokemonInfo(id){
+		this.setState({pokeId: id});
 		this.getPokemon(id);
 		this.getPokemonGeneralInfo(id);
 	}
