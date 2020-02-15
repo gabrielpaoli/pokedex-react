@@ -1,21 +1,20 @@
 {
-  "name": "mern-stack-tasks",
+  "name": "pokedex",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "webpack": "webpack --mode development --watch",
-    "mongostart": "mongod --config /usr/local/etc/mongod.conf --fork"
+    "webpack": "webpack --mode development --watch"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "mongoose": "^5.8.11",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "react-image": "^2.3.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
@@ -25,6 +24,7 @@
     "nodemon": "^2.0.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-router-dom": "^5.1.2",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10"
   }
