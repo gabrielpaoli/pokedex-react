@@ -22,7 +22,7 @@ class Pokedex extends Component{
 	}
 
 	//TODO 1: agarrar el total de items y pasarselo al show more
-	//TODO 2: Seguramente se puede hacer un split de las dos llamadas 
+	//TODO 2: Seguramente se puedan unificar las dos llamadas
 	getPokemons(offset, limit, pokemonName=null){
 		this.setState({spinner: true});
 		this.setState({searchMode: false});
@@ -37,7 +37,7 @@ class Pokedex extends Component{
 			var resultsF = {};
 			resultsF.results = []
 
-			fetch(`https://pokeapi.co/api/v2/pokemon?offset=0&limit=807`)
+			fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`)
 			.then(res =>res.json())
 			.then(data => {				
 				for (var i=0 ; i < data.results.length ; i++)
@@ -78,7 +78,6 @@ class Pokedex extends Component{
 		this.setState({offset: newOffset});
 	}
 
-	//TODO: Si no le paso 0, 0 como parametro llama a toda la lista....
 	handleChange(e) {
 		const { name, value } = e.target;
 		let min = (value === '') ? 0 : this.state.limitMinPokemon;
@@ -117,7 +116,7 @@ class Pokedex extends Component{
 				}
 
 				<div className="center-align col s12">
-				{!this.state.searchMode ? (
+				{!this.state.searchMode && this.state.limitMaxPokemon > this.state.offset ? (
 					<button className="btn light-blue darken-4 center-align" onClick={() => this.showMore()}> 
 						{this.state.spinner ? (
 							<i className="material-icons">sync</i>

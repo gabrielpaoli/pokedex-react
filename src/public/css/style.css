@@ -86,3 +86,5 @@ body {
     text-align: center;
     color: white;
 }
+
+.input-field select{display: block;}

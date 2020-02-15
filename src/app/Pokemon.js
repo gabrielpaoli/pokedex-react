@@ -16,11 +16,15 @@ class Pokemon extends Component{
 			pokeGeneralInfo: [],
 			language: 'en',
 			evolutionChain: [],
-			loading: true
+			loading: true,
+			varieties: [],
+			varieteImage: 0,
 		}
-    this.parseId= this.parseId.bind(this);
-    this.pad= this.pad.bind(this);
-    this.getAllPokemonInfo= this.getAllPokemonInfo.bind(this);
+
+	    this.parseId= this.parseId.bind(this);
+	    this.pad= this.pad.bind(this);
+	    this.getAllPokemonInfo= this.getAllPokemonInfo.bind(this);
+		this.handleChangeVariete = this.handleChangeVariete.bind(this);
 	}
 	
 	getPokemon(id){
@@ -41,6 +45,19 @@ class Pokemon extends Component{
 		});
 	}
 
+	getSpecies(id){
+		let varieties = [];
+		fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
+		.then(res =>res.json())
+		.then(data => {
+			data.varieties.map(variete => {
+				varieties.push({'name': variete.pokemon.name, 'id': this.parseId(variete.pokemon.url), 'base_pokemon': this.pad(data.id)});
+				this.setState({varieties: varieties});
+			});
+
+		});
+	}
+ 
 	getEvolutionChain(chain){
 		fetch(chain)
 		.then(res =>res.json())
@@ -66,11 +83,14 @@ class Pokemon extends Component{
 		this.setState({pokeId: id});
 		this.getPokemon(id);
 		this.getPokemonGeneralInfo(id);
+		this.getSpecies(id);
+		this.setState({varieteImage: 0});
 	}
 
 	prevPokemon(id){
 		if(id > 1){
 			var id = id - 1;
+			this.setState({varieteImage: 0});
 			this.setState({pokeId: id});
 			this.getAllPokemonInfo(id);
 		}
@@ -79,6 +99,7 @@ class Pokemon extends Component{
 	nextPokemon(id){
 		if(id < 807){
 			var id = id + 1;
+			this.setState({varieteImage: 0});
 			this.setState({pokeId: id});
 			this.getAllPokemonInfo(id);
 		}
@@ -124,12 +145,28 @@ class Pokemon extends Component{
 		return s;
 	}
 
+	handleChangeVariete(e) {
+		const {value} = e.target;
+		this.getPokemon(value);
+		if(e.target.selectedIndex > 0){
+			this.setState({varieteImage: e.target.selectedIndex + 1});
+		}else{
+			this.setState({varieteImage: 0});
+		}
+		this.setState({loading: false});
+    }
+
 	render(){
 		if (!this.state.pokeGeneralInfo.flavor_text_entries ||
 			!this.state.pokedata.stats ||
 			!this.state.evolutionChain) {
 				return <div></div>;
 		} 
+
+		let varieteImage = this.pad(this.state.pokedata.id);
+		if(this.state.varieteImage > 0){
+			varieteImage = this.state.varieties[0].base_pokemon + '_f' + this.state.varieteImage;
+		}
 
 		return (
 
@@ -138,13 +175,30 @@ class Pokemon extends Component{
 				<h3 className="center title">
 					{this.state.pokedata.name}  <span className="grey-text text-darken-1">N.°{this.pad(this.state.pokedata.id)}</span>
 				</h3>
-			
+
+				{this.state.varieties.length > 1 ? (
+					<div className="select-varietes input-field col s12">
+					<select defaultValue={'386'} onChange={this.handleChangeVariete}>
+						{
+							this.state.varieties.map((variete, key) => {
+								return(
+									<option key={key} value={variete.id}>{variete.name}</option>
+								)
+							})
+						}
+					</select>
+					</div>
+				) : (
+					''
+				)}	
+
 				<div className="row">
 					<div className="col m5">
 						<div className="container-pokemon-image">
+					
 							<Img 
 								className="image-100-responsive pokemon-image" 
-								src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${this.pad(this.state.pokedata.id)}.png`} 
+								src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${varieteImage}.png`} 
 								loader={<div className='images-loader'><img src="../images/loader.gif" /></div>}
 							/>
 						</div>
