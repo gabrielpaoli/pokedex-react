@@ -54,8 +54,8 @@ class Pokemon extends Component{
 
 	componentDidMount() {
 		let pokemonId = 1; 
-		if(this.props.idParameter){
-			pokemonId = parseInt(this.props.idParameter);
+		if(this.props.match.params.id){
+			pokemonId = parseInt(this.props.match.params.id);
 			this.setState({pokeId: pokemonId});
 		}
 		this.getAllPokemonInfo(pokemonId);
