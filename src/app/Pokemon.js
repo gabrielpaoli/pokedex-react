@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import PokemonGraph from './pokemon/PokemonGraph';
 import PokemonAttributes from './pokemon/PokemonAttributes';
 import PokemonType from './pokemon/PokemonType';
+import PokemonVariations from './pokemon/PokemonVariations';
 import EvolveChain from './pokemon/EvolveChain';
 import Img from 'react-image';
 
@@ -32,32 +33,26 @@ class Pokemon extends Component{
 		fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
 		.then(res =>res.json())
 		.then(data => {
+			console.log(data);
 			this.setState({pokedata: data});
 		});
 	}
  
 	getPokemonGeneralInfo(id){
-		fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
-		.then(res =>res.json())
-		.then(data => {
-			this.setState({pokeGeneralInfo: data});
-			this.getEvolutionChain(this.state.pokeGeneralInfo.evolution_chain.url);
-		});
-	}
-
-	getSpecies(id){
 		let varieties = [];
 		fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
 		.then(res =>res.json())
 		.then(data => {
+			console.log(data);
+			this.setState({pokeGeneralInfo: data});
+			this.getEvolutionChain(this.state.pokeGeneralInfo.evolution_chain.url);
 			data.varieties.map(variete => {
 				varieties.push({'name': variete.pokemon.name, 'id': this.parseId(variete.pokemon.url), 'base_pokemon': this.pad(data.id)});
 				this.setState({varieties: varieties});
 			});
-
 		});
 	}
- 
+
 	getEvolutionChain(chain){
 		fetch(chain)
 		.then(res =>res.json())
@@ -83,7 +78,6 @@ class Pokemon extends Component{
 		this.setState({pokeId: id});
 		this.getPokemon(id);
 		this.getPokemonGeneralInfo(id);
-		this.getSpecies(id);
 		this.setState({varieteImage: 0});
 	}
 
@@ -145,6 +139,7 @@ class Pokemon extends Component{
 		return s;
 	}
 
+	//TODO: El hardfix del + 1 es porque no tengo las imagenes en local.
 	handleChangeVariete(e) {
 		const {value} = e.target;
 		this.getPokemon(value);
@@ -163,9 +158,9 @@ class Pokemon extends Component{
 				return <div></div>;
 		} 
 
-		let varieteImage = this.pad(this.state.pokedata.id);
+		let varieteImageInn = this.pad(this.state.pokedata.id);
 		if(this.state.varieteImage > 0){
-			varieteImage = this.state.varieties[0].base_pokemon + '_f' + this.state.varieteImage;
+			varieteImageInn = this.state.varieties[0].base_pokemon + '_f' + this.state.varieteImage;
 		}
 
 		return (
@@ -176,29 +171,19 @@ class Pokemon extends Component{
 					{this.state.pokedata.name}  <span className="grey-text text-darken-1">N.°{this.pad(this.state.pokedata.id)}</span>
 				</h3>
 
-				{this.state.varieties.length > 1 ? (
-					<div className="select-varietes input-field col s12">
-					<select defaultValue={'386'} onChange={this.handleChangeVariete}>
-						{
-							this.state.varieties.map((variete, key) => {
-								return(
-									<option key={key} value={variete.id}>{variete.name}</option>
-								)
-							})
-						}
-					</select>
-					</div>
-				) : (
-					''
-				)}	
+				<div className="container-select-variations col s12">
+					<PokemonVariations 
+						varieties={this.state.varieties} 
+						handleChangeVariete = {this.handleChangeVariete.bind(this)}
+					/>
+				</div>
 
 				<div className="row">
 					<div className="col m5">
 						<div className="container-pokemon-image">
-					
 							<Img 
 								className="image-100-responsive pokemon-image" 
-								src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${varieteImage}.png`} 
+								src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${varieteImageInn}.png`} 
 								loader={<div className='images-loader'><img src="../images/loader.gif" /></div>}
 							/>
 						</div>
@@ -224,13 +209,13 @@ class Pokemon extends Component{
 							/>
 						</div>
 
-						<div className="col m12">
+						<div className="col s12">
 							<PokemonType types = {this.state.pokedata.types} />
 						</div>
 
 					</div>	
 				
-					<div className="col m12">
+					<div className="col s12">
 						<EvolveChain 
 							chain = {this.state.evolutionChain} 
 							parseChain = {this.parseId.bind(this)} 

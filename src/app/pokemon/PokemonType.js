@@ -8,7 +8,7 @@ class PokemonType extends Component{
 				{
 					this.props.types.map(typeGeneral => {
 						return (
-								<div key={typeGeneral.type.name} className="col m3">
+								<div key={typeGeneral.type.name} className="col s3">
 									<div className={`background-color-${typeGeneral.type.name} container-type`}>{typeGeneral.type.name}</div>
 								</div>
 						);
