@@ -183,7 +183,7 @@ class Pokemon extends Component{
 						<div className="container-pokemon-image">
 							<Img 
 								className="image-100-responsive pokemon-image" 
-								src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${varieteImageInn}.png`} 
+								src={`../images/pokeimages/${varieteImageInn}.png`} 
 								loader={<div className='images-loader'><img src="../images/loader.gif" /></div>}
 							/>
 						</div>
